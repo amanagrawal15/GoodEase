@@ -25,8 +25,7 @@ private Button Sign_out;
         Sign_out = (Button)findViewById(R.id.btnsign_out);
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        String wel = user.getEmail().toString();
-        welcome.setText("WELCOME "+wel);
+        welcome.setText("WELCOME "+user.getEmail());
         Sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

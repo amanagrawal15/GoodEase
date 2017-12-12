@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GoodEase</string>
+    <string-array name="size">
+        <item>Quarter</item>
+        <item>Half</item>
+        <item>Full</item>
+    </string-array>
+
 </resources>

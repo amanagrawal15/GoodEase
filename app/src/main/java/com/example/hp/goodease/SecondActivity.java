@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity implements OnItemSelectedListener {
 private Button Sign_out;
     private TextView welcome;
     private Spinner ddsize;
@@ -38,6 +40,17 @@ private Button Sign_out;
                 startActivity(new Intent(SecondActivity.this, Login.class));
             }
         });
+        ddsize.setOnItemSelectedListener(this);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String itemSelected = adapterView.getItemAtPosition(i).toString();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

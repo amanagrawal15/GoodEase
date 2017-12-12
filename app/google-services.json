@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1025813161779",
+    "firebase_url": "https://goodease-7a55f.firebaseio.com",
+    "project_id": "goodease-7a55f",
+    "storage_bucket": "goodease-7a55f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025813161779:android:9aab72fb0969857e",
+        "android_client_info": {
+          "package_name": "com.example.hp.goodease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025813161779-bdpddfp484lj7ddd93cdusp5ph75bnou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC__N41CghtfQ-x5qla4PyHogly46cq6C8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

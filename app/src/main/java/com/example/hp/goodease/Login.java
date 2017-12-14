@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
         SIGNUP = (Button)findViewById(R.id.btnReg);
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null){
-            Intent intent = new Intent(Login.this, SecondActivity.class);
+            Intent intent = new Intent(Login.this, LocationActivity.class);
             startActivity(intent);
         }
 
@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete()){
                     Toast.makeText(Login.this,"Login Succesful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login.this, SecondActivity.class));
+                    startActivity(new Intent(Login.this, LocationActivity.class));
                 }
                 else{
                     Toast.makeText(Login.this,"Login Unsuccesful", Toast.LENGTH_SHORT).show();

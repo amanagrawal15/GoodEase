@@ -40,6 +40,8 @@ public class Login extends AppCompatActivity {
         LOGIN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // firebaseAuth.signOut();
+                firebaseAuth.signOut();
                 validate(Registration_no.getText().toString(), Password.getText().toString());
 
 

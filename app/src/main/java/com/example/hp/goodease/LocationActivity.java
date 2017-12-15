@@ -1,6 +1,9 @@
 package com.example.hp.goodease;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 
 import android.os.Build;
@@ -10,6 +13,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
@@ -27,6 +33,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+
 public class LocationActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -37,22 +46,68 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     private LocationRequest locationRequest;
     private Location lastLocation;
     private Marker currentLocationMarker;
+    private Marker pickLocationMarker;
+    private Marker dropLocationMarker;
     public static  final  int PERMISSION_REQUEST_LOCATION_CODE = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_location );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+                .findFragmentById( R.id.map );
+        mapFragment.getMapAsync( this );
     }
 
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_showmap) {
+            EditText Pickup_Location = (EditText) findViewById( R.id.et_pickup );
+            EditText Drop_Location = (EditText) findViewById( R.id.et_drop );
+            String pickup_location = Pickup_Location.getText().toString();
+            String drop_location = Drop_Location.getText().toString();
+            Geocoder geocoder = new Geocoder( this );
+            List<Address> pickup_address = null;
+            List<Address> drop_address = null;
+            MarkerOptions MO_pick = new MarkerOptions();
+            MarkerOptions MO_drop = new MarkerOptions();
+            if(currentLocationMarker != null)
+            {
+                currentLocationMarker.remove();
+            }
+            if (!pickup_location.equals( "" ) && !drop_location.equals( "" )) {
+
+                try {
+                    pickup_address = geocoder.getFromLocationName( pickup_location, 2 );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    drop_address = geocoder.getFromLocationName( drop_location, 2 );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                LatLng latLng_pick = new LatLng( pickup_address.get(0).getLatitude(), pickup_address.get(0).getLongitude() );
+                LatLng latLng_drop = new LatLng( drop_address.get(0).getLatitude(), drop_address.get(0).getLongitude() );
+                MO_pick.position( latLng_pick );
+                MO_drop.position( latLng_drop );
+                MO_pick.title( "PICKUP" );
+                MO_drop.title( "DROP" );
+                MO_pick.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_BLUE ) );
+                MO_drop.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_ROSE ) );
+                pickLocationMarker = mMap.addMarker( MO_pick );
+                dropLocationMarker = mMap.addMarker( MO_drop );
+                mMap.animateCamera( CameraUpdateFactory.newLatLng( latLng_pick ) );
+
+            }
+
+        }
+        if(v.getId() == R.id.btn_continue){
+            startActivity( new Intent( LocationActivity.this , SecondActivity.class ) );
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode)
@@ -82,7 +137,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
@@ -101,7 +156,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         client.connect();
     }
 
-    @Override
+  @Override
     public void onLocationChanged(Location location) {
         lastLocation = location;
 
@@ -113,7 +168,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Pickup Location");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
         currentLocationMarker = mMap.addMarker(markerOptions);
 
@@ -125,6 +180,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
         }
     }
+
 
 
     @Override

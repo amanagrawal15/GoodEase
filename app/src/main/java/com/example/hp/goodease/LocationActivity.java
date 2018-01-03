@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,9 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     private Marker currentLocationMarker;
     private Marker pickLocationMarker;
     private Marker dropLocationMarker;
+    public static String distance[] = new String[2];
+    private  List<Address> pickup_address = null;
+    private  List<Address> drop_address = null;
     public static  final  int PERMISSION_REQUEST_LOCATION_CODE = 99;
 
     @Override
@@ -69,13 +73,20 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             String pickup_location = Pickup_Location.getText().toString();
             String drop_location = Drop_Location.getText().toString();
             Geocoder geocoder = new Geocoder( this );
-            List<Address> pickup_address = null;
-            List<Address> drop_address = null;
+
             MarkerOptions MO_pick = new MarkerOptions();
             MarkerOptions MO_drop = new MarkerOptions();
             if(currentLocationMarker != null)
             {
                 currentLocationMarker.remove();
+            }
+            if(pickLocationMarker != null)
+            {
+                pickLocationMarker.remove();
+            }
+            if(dropLocationMarker != null)
+            {
+                dropLocationMarker.remove();
             }
             if (!pickup_location.equals( "" ) && !drop_location.equals( "" )) {
 
@@ -102,11 +113,32 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 mMap.animateCamera( CameraUpdateFactory.newLatLng( latLng_pick ) );
 
             }
-
         }
         if(v.getId() == R.id.btn_continue){
-            startActivity( new Intent( LocationActivity.this , SecondActivity.class ) );
+            Log.d("Click","Continue button Clicked" );
+            Object dataTransfer[] = new Object[2];
+             String url = getDirectionsUrl();
+            Log.d("URL", url);
+            GetDirectionsData getDirectionsData = new GetDirectionsData();
+            dataTransfer[0] = mMap;
+            dataTransfer[1] = url;
+            getDirectionsData.execute(dataTransfer);
+            Log.d("BT232",distance[0]+distance[1] );
+            startActivity( new Intent( LocationActivity.this , SecondActivity.class ));
+
         }
+    }
+
+
+    private  String getDirectionsUrl()
+    {
+        StringBuilder googleDirectionsUrl = new StringBuilder( "https://maps.googleapis.com/maps/api/directions/json?" );
+        googleDirectionsUrl.append("origin="+pickup_address.get(0).getLatitude()+","+pickup_address.get(0).getLongitude());
+        googleDirectionsUrl.append("&destination="+drop_address.get(0).getLatitude()+","+drop_address.get(0).getLongitude());
+        googleDirectionsUrl.append( "&key="+"AIzaSyAl4msqOCbh4NR1pEZtGPI-DLx-gSGgeic" );
+
+        return googleDirectionsUrl.toString();
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

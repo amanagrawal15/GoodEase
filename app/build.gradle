@@ -16,12 +16,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+
     }
     productFlavors {
-        normal{
+        normal {
 
+            //   pa "com.example.hp.goodease.normal"
         }
-        driver{
+        driver {
+            //  applicationId "com.example.goodease.driver"
 
         }
     }

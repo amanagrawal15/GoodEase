@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GoodEaseDriver</string>
+    <string-array name="size">
+        <item>Select size</item>
+        <item>Quarter</item>
+        <item>Half</item>
+        <item>Full</item>
+    </string-array>
+    <string name="title_activity_location">Map</string>
+
+</resources>

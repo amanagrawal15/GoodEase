@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.goodease.driver.DriverMainActivity;
 import com.example.hp.goodease.driver.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,40 +26,49 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_login );
 
-        Registration_no = (EditText)findViewById(R.id.etReg_no);
-        Password = (EditText)findViewById(R.id.etPassword);
-        LOGIN = (Button)findViewById(R.id.btnLOGIN);
-        SIGNUP = (Button)findViewById(R.id.btnReg);
+        Registration_no = (EditText) findViewById( R.id.etReg_no );
+        Password = (EditText) findViewById( R.id.etPassword );
+        LOGIN = (Button) findViewById( R.id.btnLOGIN );
+        SIGNUP = (Button) findViewById( R.id.btnReg );
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() != null){
-            Intent intent = new Intent(Login.this, LocationActivity.class);
-            startActivity(intent);
+        if (firebaseAuth.getCurrentUser() != null && Constants.type == Constants.Type.NORMAL) {
+            Intent intent = new Intent( Login.this, LocationActivity.class );
+            startActivity( intent );
+
+            if (firebaseAuth.getCurrentUser() != null && Constants.type == Constants.Type.DRIVER) {
+                Intent intent2 = new Intent( Login.this, DriverMainActivity.class );
+                startActivity( intent2 );
+            }
+
+            LOGIN.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // firebaseAuth.signOut();
+                    firebaseAuth.signOut();
+                    validate( Registration_no.getText().toString(), Password.getText().toString() );
+
+
+                }
+            } );
+
+            SIGNUP.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Constants.type == Constants.Type.NORMAL) {
+                        Intent intent = new Intent( Login.this, RegistrationActivity.class );
+                        startActivity( intent );
+                    }
+                    if (Constants.type == Constants.Type.DRIVER)
+                        Toast.makeText( Login.this, " You cannot register", Toast.LENGTH_SHORT ).show();
+
+                }
+            } );
+
+
         }
-
-        LOGIN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // firebaseAuth.signOut();
-                firebaseAuth.signOut();
-                validate(Registration_no.getText().toString(), Password.getText().toString());
-
-
-            }
-        });
-
-        SIGNUP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, RegistrationActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-
     }
     private void validate(String userNo, String userPassword){
         firebaseAuth.signInWithEmailAndPassword(userNo, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -69,7 +79,7 @@ public class Login extends AppCompatActivity {
                     if(Constants.type == Constants.Type.NORMAL)
                     startActivity(new Intent(Login.this, LocationActivity.class));
                     else
-                        Toast.makeText(Login.this,"Driver bhosad", Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent( Login.this, DriverMainActivity.class)  );
 
                 }
                 else{

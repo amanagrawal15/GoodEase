@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GoodEase.iml" filepath="$PROJECT_DIR$/GoodEase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../user/Desktop/GoodEaseaman/GoodEase.iml" filepath="$PROJECT_DIR$/../../../user/Desktop/GoodEaseaman/GoodEase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/GoodEaseaman.iml" filepath="$PROJECT_DIR$/.idea/GoodEaseaman.iml" />
+      <module fileurl="file://C:\Users\user\Desktop\GoodEasenew\GoodEase.iml" filepath="C:\Users\user\Desktop\GoodEasenew\GoodEase.iml" />
+      <module fileurl="file://C:\Users\user\Desktop\GoodEaseaman\GoodEase.iml" filepath="C:\Users\user\Desktop\GoodEaseaman\GoodEase.iml" />
+      <module fileurl="file://C:\Users\user\Desktop\GoodEasenew\.idea\GoodEaseaman.iml" filepath="C:\Users\user\Desktop\GoodEasenew\.idea\GoodEaseaman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GoodEasenew.iml" filepath="$PROJECT_DIR$/.idea/GoodEasenew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.goodease.driver.DriverMainActivity;
-import com.example.hp.goodease.driver.Constants;
+import com.example.goodease.driver.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,14 +39,13 @@ public class Login extends AppCompatActivity {
             startActivity( intent );
 
             if (firebaseAuth.getCurrentUser() != null && Constants.type == Constants.Type.DRIVER) {
-                Intent intent2 = new Intent( Login.this, DriverMainActivity.class );
-                startActivity( intent2 );
+                startActivity( new Intent( Login.this, DriverMainActivity.class ));
+
             }
 
             LOGIN.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // firebaseAuth.signOut();
                     firebaseAuth.signOut();
                     validate( Registration_no.getText().toString(), Password.getText().toString() );
 

@@ -1,4 +1,4 @@
-package com.example.hp.goodease.driver;
+package com.example.goodease.driver;
 
 /**
  * Created by hp on 1/2/2018.

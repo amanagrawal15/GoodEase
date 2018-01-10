@@ -64,7 +64,9 @@ private Button Sign_out;
         order.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent( SecondActivity.this, TrackActivity.class ) );
+              //  startActivity( new Intent( SecondActivity.this, TrackActivity.class ) );
+                BackgroundWorker backgroundWorker = new BackgroundWorker( SecondActivity.this );
+                backgroundWorker.execute( "login", "id4235294_ayumandul", "ayush123" );
 
 
             }

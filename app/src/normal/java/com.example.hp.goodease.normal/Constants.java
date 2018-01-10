@@ -1,4 +1,4 @@
-package com.example.hp.goodease.driver;
+package com.example.hp.goodease.normal;
 
 /**
  * Created by hp on 1/2/2018.
@@ -7,7 +7,7 @@ package com.example.hp.goodease.driver;
 public class Constants {
 
     public enum Type {
-        DRIVER, NORMAL;
+        NORMAL, DRIVER;
     }
     public static final Type type = Type.NORMAL;
 }

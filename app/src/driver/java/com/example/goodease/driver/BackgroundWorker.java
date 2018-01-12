@@ -1,28 +1,28 @@
-package com.example.hp.goodease;
+package com.example.goodease.driver;
 
-        import android.app.AlertDialog;
-        import android.content.Context;
-        import android.os.AsyncTask;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 
-        import java.io.BufferedReader;
-        import java.io.BufferedWriter;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.io.OutputStream;
-        import java.io.OutputStreamWriter;
-        import java.net.HttpURLConnection;
-        import java.net.MalformedURLException;
-        import java.net.URL;
-        import java.net.URLEncoder;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by ProgrammingKnowledge on 1/5/2016.
  */
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
-   public Context context;
+    Context context;
     AlertDialog alertDialog;
-    public BackgroundWorker(Context ctx) {
+    BackgroundWorker(Context ctx) {
         context = ctx;
     }
     @Override

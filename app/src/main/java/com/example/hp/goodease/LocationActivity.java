@@ -50,9 +50,11 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     private Marker pickLocationMarker;
     private Marker dropLocationMarker;
     public static String distance[] = new String[2];
-    private  List<Address> pickup_address = null;
-    private  List<Address> drop_address = null;
+    private static   List<Address> pickup_address = null;
+    private static List<Address> drop_address = null;
     public static  final  int PERMISSION_REQUEST_LOCATION_CODE = 99;
+    public static LatLng latLng_pick = new LatLng( pickup_address.get(0).getLatitude(), pickup_address.get(0).getLongitude() );
+    public  static LatLng latLng_drop = new LatLng( drop_address.get(0).getLatitude(), drop_address.get(0).getLongitude() );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +102,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                LatLng latLng_pick = new LatLng( pickup_address.get(0).getLatitude(), pickup_address.get(0).getLongitude() );
-                LatLng latLng_drop = new LatLng( drop_address.get(0).getLatitude(), drop_address.get(0).getLongitude() );
+
                 MO_pick.position( latLng_pick );
                 MO_drop.position( latLng_drop );
                 MO_pick.title( "PICKUP" );

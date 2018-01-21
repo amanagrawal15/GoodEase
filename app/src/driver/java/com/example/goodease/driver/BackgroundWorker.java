@@ -3,6 +3,8 @@ package com.example.goodease.driver;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,21 +21,21 @@ import java.net.URLEncoder;
 /**
  * Created by ProgrammingKnowledge on 1/5/2016.
  */
-public class BackgroundWorker extends AsyncTask<String,Void,String> {
+public class BackgroundWorker extends AsyncTask<Object,Void,String> {
     Context context;
     AlertDialog alertDialog;
     BackgroundWorker(Context ctx) {
         context = ctx;
     }
     @Override
-    protected String doInBackground(String... params) {
-        String type = params[0];
+    protected String doInBackground(Object... params) {
+        String type = (String)params[0];
         String login_url = "http://goodease.000webhostapp.com/login.php";
         String update_url =  "http://goodease.000webhostapp.com/updated_location.php";
         if(type.equals("login")) {
             try {
-                String user_name = params[1];
-                String password = params[2];
+                String user_name = (String)params[2];
+                String password = (String)params[3];
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -67,9 +69,10 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
        else if(type.equals("update")) {
             try {
-                String Driver_ID = params[1];
-                String Location = params[2];
-                String State = params[3];
+                String Driver_ID = (String)params[1];
+                String Lat = (String) params[2];
+                String Lon = (String) params[3];
+                String State = (String)params[4];
                 URL url = new URL(update_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -78,8 +81,10 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("driver_id","UTF-8")+"="+URLEncoder.encode(Driver_ID,"UTF-8")+"&"
-                        +URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(Location,"UTF-8")+"&"+
+                        +URLEncoder.encode("latitude","UTF-8")+"="+URLEncoder.encode( Lat, "UTF-8" )+"&"+
+                        URLEncoder.encode("longitude","UTF-8")+"="+URLEncoder.encode( Lon, "UTF-8" )+"&"+
                         URLEncoder.encode( "state","UTF-8" )+"="+URLEncoder.encode( State,"UTF-8" );
+                Log.i(" Update BT", post_data);
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -106,14 +111,13 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");
+       // alertDialog = new AlertDialog.Builder(context).create();
+       // alertDialog.setTitle("Login Status");
     }
 
     @Override
     protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+        Toast.makeText( context, result, Toast.LENGTH_SHORT ).show();
     }
 
     @Override

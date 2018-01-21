@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.goodease.driver.DriverMainActivity;
-import com.example.goodease.driver.Constants;
+import com.example.hp.goodease.normal.DriverMainActivity;
+import com.example.hp.goodease.normal.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,14 +36,14 @@ public class Login extends AppCompatActivity {
         Log.i (" typecast bhosad", "alright");
         SIGNUP = (Button) findViewById( R.id.btnReg );
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null && Constants.type == Constants.Type.NORMAL) {
+      /*  if (firebaseAuth.getCurrentUser() != null && Constants.type == Constants.Type.NORMAL) {
             Intent intent = new Intent( Login.this, LocationActivity.class );
             startActivity( intent );
 
          //   if (firebaseAuth.getCurrentUser() != null && Constants.type == Constants.Type.DRIVER) {
              //   startActivity( new Intent( Login.this, DriverMainActivity.class ));
 
-            }
+            }*/
             Log.i (" before LOGIN bhosad", "alright");
 
             LOGIN.setOnClickListener( new View.OnClickListener() {

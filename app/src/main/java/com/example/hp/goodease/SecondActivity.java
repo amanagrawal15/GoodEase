@@ -23,8 +23,12 @@ private Button Sign_out;
     private Spinner ddsize;
     private TextView est_time, est_price ;
     private Button order, reset;
-    private int price;
+    public static int price;
     private FirebaseAuth firebaseAuth;
+    public String Latitude_pick;
+   public String Longitude_pick;
+    public String Longitude_drop;
+    public String Latitude_drop;
     public static String dur_dis[] = new String[2];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,14 @@ private Button Sign_out;
             @Override
             public void onClick(View v) {
               //  startActivity( new Intent( SecondActivity.this, TrackActivity.class ) );
-                BackgroundWorker backgroundWorker = new BackgroundWorker( SecondActivity.this );
-                backgroundWorker.execute( "login", "id4235294_ayumandul", "ayush123" );
+                String user_ID = firebaseAuth.getCurrentUser().getUid();
+                Latitude_pick = Double.toString( LocationActivity.latLng_pick.latitude );
+                Longitude_pick = Double.toString( LocationActivity.latLng_pick.longitude );
+                Latitude_drop = Double.toString( LocationActivity.latLng_drop.latitude );
+                Longitude_drop = Double.toString( LocationActivity.latLng_drop.longitude );
+
+                BWPlaceOrder bwPlaceOrder = new BWPlaceOrder( SecondActivity.this );
+                bwPlaceOrder.execute( "place order", user_ID, Latitude_pick, Longitude_pick, Latitude_drop, Latitude_drop, Integer.toString( price ) );
 
 
             }

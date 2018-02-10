@@ -32,6 +32,7 @@ private Button Sign_out;
     public static String dur_dis[] = new String[2];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("bt bc", " oncreate" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         welcome =(TextView)findViewById(R.id.tvwelcome);
@@ -44,6 +45,7 @@ private Button Sign_out;
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         welcome.setText("WELCOME "+user.getEmail());
+        Log.d("bt bc", " sab ban gaya" );
 
       /* est_time.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -77,7 +79,8 @@ private Button Sign_out;
 
                 BWPlaceOrder bwPlaceOrder = new BWPlaceOrder( SecondActivity.this );
                 bwPlaceOrder.execute( "place order", user_ID, Latitude_pick, Longitude_pick, Latitude_drop, Latitude_drop, Integer.toString( price ) );
-
+                //Intent intent = new Intent( SecondActivity.this, TrackActivity.class );
+                //startActivity( intent );
 
             }
         } );

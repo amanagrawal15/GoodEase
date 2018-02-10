@@ -53,19 +53,22 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     private static   List<Address> pickup_address = null;
     private static List<Address> drop_address = null;
     public static  final  int PERMISSION_REQUEST_LOCATION_CODE = 99;
-    public static LatLng latLng_pick = new LatLng( pickup_address.get(0).getLatitude(), pickup_address.get(0).getLongitude() );
-    public  static LatLng latLng_drop = new LatLng( drop_address.get(0).getLatitude(), drop_address.get(0).getLongitude() );
+    public static LatLng latLng_pick ;
+    public  static LatLng latLng_drop ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d( "kutta", "oncreate" );
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_location );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
+        Log.d( "kutta", "smf" );
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById( R.id.map );
         mapFragment.getMapAsync( this );
+        Log.d( "kutta", "Async" );
     }
 
     public void onClick(View v) {
@@ -102,6 +105,8 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                latLng_pick = new LatLng( pickup_address.get(0).getLatitude(), pickup_address.get(0).getLongitude() );
+                latLng_drop = new LatLng( drop_address.get(0).getLatitude(), drop_address.get(0).getLongitude() );
 
                 MO_pick.position( latLng_pick );
                 MO_drop.position( latLng_drop );

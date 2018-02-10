@@ -1,6 +1,7 @@
 package com.example.hp.goodease;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this,"Login Succesful", Toast.LENGTH_SHORT).show();
                     if(Constants.type == Constants.Type.NORMAL) {
                         Log.i( " validate normal bhosad", "alright" );
-                        startActivity( new Intent( Login.this, LocationActivity.class ) );
+                        startActivity( new Intent( Login.this, SecondActivity.class ) );
                     }
                     if(Constants.type == Constants.Type.DRIVER) {
                         Log.i( " validate driver bhosad", "alright" );

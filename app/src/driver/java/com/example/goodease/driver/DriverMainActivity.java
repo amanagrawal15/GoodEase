@@ -63,7 +63,7 @@ public class DriverMainActivity extends AppCompatActivity {
                                 }else {
                                      lat = Double.toString(l.getLatitude());
                                      lon = Double.toString(l.getLongitude());
-                                    Toast.makeText( getApplicationContext(), "GPS Lat = " + lat + "\n lon = " + lon, Toast.LENGTH_SHORT ).show();
+                                    Toast.makeText( getApplicationContext(), "GPS Lat = " + lat + " lon = " + lon, Toast.LENGTH_SHORT ).show();
 
                                 }
 

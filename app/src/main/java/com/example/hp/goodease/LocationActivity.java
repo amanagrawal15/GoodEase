@@ -73,14 +73,16 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
 
     public void onClick(View v) {
         if (v.getId() == R.id.btn_showmap) {
+            Log.d( "kutta", "showmap" );
             EditText Pickup_Location = (EditText) findViewById( R.id.et_pickup );
             EditText Drop_Location = (EditText) findViewById( R.id.et_drop );
             String pickup_location = Pickup_Location.getText().toString();
             String drop_location = Drop_Location.getText().toString();
             Geocoder geocoder = new Geocoder( this );
-
+            Log.d( "kutta", "geocoder" );
             MarkerOptions MO_pick = new MarkerOptions();
             MarkerOptions MO_drop = new MarkerOptions();
+            Log.d( "kutta", "MO" );
             if(currentLocationMarker != null)
             {
                 currentLocationMarker.remove();
@@ -93,10 +95,14 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             {
                 dropLocationMarker.remove();
             }
+            Log.d( "kutta", "if ladder" );
             if (!pickup_location.equals( "" ) && !drop_location.equals( "" )) {
 
                 try {
+                    Log.d( "kutta", "try ghusa" );
                     pickup_address = geocoder.getFromLocationName( pickup_location, 2 );
+                    Log.d( "kutta", "toast se pahle geo ki bt" );
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -105,9 +111,13 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Log.d( "kutta", "try catch" );
+               // Toast.makeText( this, (int) pickup_address.get(0).getLatitude(),Toast.LENGTH_LONG  );
+               // Log.d( "kutta", "toast" );
+
                 latLng_pick = new LatLng( pickup_address.get(0).getLatitude(), pickup_address.get(0).getLongitude() );
                 latLng_drop = new LatLng( drop_address.get(0).getLatitude(), drop_address.get(0).getLongitude() );
-
+                Log.d( "kutta", "latlng" );
                 MO_pick.position( latLng_pick );
                 MO_drop.position( latLng_drop );
                 MO_pick.title( "PICKUP" );

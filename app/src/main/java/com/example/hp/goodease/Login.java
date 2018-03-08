@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.hp.goodease.normal.DriverMainActivity;
-import com.example.hp.goodease.normal.Constants;
+import com.example.goodease.driver.DriverMainActivity;
+import com.example.goodease.driver.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this,"Login Succesful", Toast.LENGTH_SHORT).show();
                     if(Constants.type == Constants.Type.NORMAL) {
                         Log.i( " validate normal bhosad", "alright" );
-                        startActivity( new Intent( Login.this, SecondActivity.class ) );
+                        startActivity( new Intent( Login.this, LocationActivity.class ) );
                     }
                     if(Constants.type == Constants.Type.DRIVER) {
                         Log.i( " validate driver bhosad", "alright" );
